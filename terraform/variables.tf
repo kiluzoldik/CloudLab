@@ -71,3 +71,32 @@ variable "disk_type" {
   type        = string
   default     = "SSD"
 }
+
+variable "ansible_to_k3s_public_key_path" {
+  description = "Path to public SSH key from Ansible control node to k3s nodes"
+  type        = string
+}
+
+# Variables для k3s master и worker нод
+variable "k3s_vm_user" {
+  description = "Linux user for k3s nodes"
+  type        = string
+  default     = "ansible"
+}
+
+variable "k3s_node_flavor" {
+  description = "Flavor for k3s nodes"
+  type        = string
+  default     = "gen-1-1"
+}
+
+variable "k3s_node_disk_size" {
+  description = "Disk size for k3s nodes in GB"
+  type        = number
+  default     = 30
+}
+
+variable "ubuntu_image_name" {
+  description = "Ubuntu image name from Cloud.ru image collection"
+  type        = string
+}

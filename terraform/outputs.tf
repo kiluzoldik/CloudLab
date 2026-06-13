@@ -35,3 +35,11 @@ output "ansible_ctrl_ssh_command" {
   description = "SSH command for Ansible control node"
   value       = "ssh -i ${replace(var.ssh_public_key_path, ".pub", "")} ${var.ansible_ctrl_vm_user}@${cloudru_evolution_compute_interface.ansible_ctrl.external_ip.ip_address}"
 }
+
+output "k3s_private_ips" {
+  description = "Private IP addresses of k3s nodes"
+  value = {
+    for node_key, node in cloudru_evolution_compute_interface.k3s :
+    node_key => node.ip_address
+  }
+}
