@@ -34,7 +34,10 @@ resource "cloudru_evolution_compute_interface" "ansible_ctrl" {
 
   description                = "Network interface for Ansible control node"
   subnet_id                  = cloudru_evolution_compute_subnet.cloudlab.id
-  interface_security_enabled = true
+  
+  # Required because ansible-ctrl-01 works as NAT/router for private k3s nodes.
+  # If enabled, Cloud.ru blocks forwarded traffic where this VM is not the final source/destination.
+  interface_security_enabled = false
 
   security_groups_identifiers = {
     value = [{

@@ -60,3 +60,25 @@ resource "cloudru_evolution_compute_security_group_rule" "ansible_ctrl_egress_ud
   description      = "Allow outbound UDP"
   remote_ip_prefix = "0.0.0.0/0"
 }
+
+resource "cloudru_evolution_compute_security_group_rule" "ansible_ctrl_ingress_nat_tcp" {
+  security_group_id = cloudru_evolution_compute_security_group.ansible_ctrl.id
+
+  direction        = "TRAFFIC_DIRECTION_INGRESS"
+  ether_type       = "ETHER_TYPE_IPV4"
+  ip_protocol      = "IP_PROTOCOL_TCP"
+  port_range       = "1:65535"
+  description      = "Allow NAT TCP traffic from cloudlab subnet"
+  remote_ip_prefix = var.subnet_address
+}
+
+resource "cloudru_evolution_compute_security_group_rule" "ansible_ctrl_ingress_nat_udp" {
+  security_group_id = cloudru_evolution_compute_security_group.ansible_ctrl.id
+
+  direction        = "TRAFFIC_DIRECTION_INGRESS"
+  ether_type       = "ETHER_TYPE_IPV4"
+  ip_protocol      = "IP_PROTOCOL_UDP"
+  port_range       = "1:65535"
+  description      = "Allow NAT UDP traffic from cloudlab subnet"
+  remote_ip_prefix = var.subnet_address
+}
